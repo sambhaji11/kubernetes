@@ -1,0 +1,732 @@
+
+Kubernetes Training
+===================
+
+Kubernetes is a platform that eliminates the manual processes involved in deploying containerized applications. 
+In this training we will cover the concepts related to this multi-container management solution.
+
+Topics to be coverd
+====================
+
+Challenges Without Container Orchestration
+Docker Swarm or Kubernetes
+What is Kubernetes?
+Kubernetes Features
+Kubernetes Architecture
+Kubernetes Case-Study
+Hands-On
+
+
+Brief of Containerization
+=========================
+So, before containers came into existence, the developers and the testers always had a tiff between them. 
+This usually, happened because what worked on the dev side, would not work on the testing side.
+Both of them existed in different environments. Now, to avoid such scenarios containers were introduced
+so that both the Developers and Testers were on the same page.
+
+Handling a large number of containers all together was also a problem.
+Sometimes while running containers, on the product side, few issues were raised,
+which were not present at the development stage. This kind of scenarios introduced the 
+Container Orchestration System. 
+
+
+
+Challenges Without Container Orchestration
+===========================================
+When multiple services run inside containers, you may want to scale these containers.
+In large scale industries, this is really tough to do. That’s because it would increase 
+the cost to maintain services, and the complexity to run them side by side.
+
+Now, to avoid setting up services manually & overcome the challenges, something big was needed. 
+This is where Container Orchestration Engine comes into the picture.
+
+This engine, lets us organize multiple containers, in such a way that all the 
+underlying machines are launched, containers are healthy and distributed in a clustered environment.
+In today’s world, there are mainly two such engines: 
+
+     1.Kubernetes
+     2.Docker Swarm.
+
+ when compared with Docker Swarm owns a great active community and empowers 
+ auto-scaling in many organizations. Similarly, Docker Swarm has an easy to start 
+ cluster when compared to Kubernetes, but it is limited to the Docker API’s capabilities.
+
+
+Docker Swarm                     Kubernetes
+ ========================================================================
+ 1.No Autoscaling                    1.Auto Scaling
+ 
+ 2.Good community                    2.Great active community
+ 
+ 3.Easy to start a cluster           3.Difficult to start a cluster
+ 
+ 4.Limited to Docker                 4.Can overcome constraints of
+   API capability                     Docker and Docker API
+
+ 5.Does not have a much              5.Deployed at scale more often 
+   experience with production          among organization
+   deployments at scale
+
+
+If you want to choose between the two, then it would have to be Kubernetes since,
+containers need to be managed and connected to the outside world for tasks such as
+scheduling, load balancing, and distribution.
+
+But, if you think logically, Docker Swarm would make a better option, as it runs on 
+Kubernetes being an undisputed leader in the market and also does run on top of Docker containers 
+with better functionalities.
+
+
+Kubernetes Features
+====================
+
+1.Automated Scheduling:
+
+ Kubernetes provides advanced scheduler to launch container on cluster nodes based on
+ their resource requirements and other constraints, while not sacrificing availability.
+
+
+2.Self Healing Capabilities: 
+
+Kubernetes allows to replaces and reschedules containers when nodes die. 
+It also kills containers that don’t respond to user-defined health check and doesn’t 
+advertise them to clients until they are ready to serve. 
+
+
+3.Automated rollouts & rollback: 
+
+Kubernetes rolls out changes to the application or its configuration while monitoring
+application health to ensure it doesn’t kill all your instances at the same time.
+If something goes wrong, with Kubernetes you can rollback the change.
+
+
+4.Horizontal Scaling & Load Balancing:
+ Kubernetes can scale up and scale down the application as per the requirements 
+ with a simple command, using a UI, or automatically based on CPU usage.
+
+
+Kubernetes Architecture
+=============================
+Kubernetes Architecture has the following main components:
+
+1.Master nodes
+2.Worker/Slave nodes
+
+Master Node
+===========
+The master node is responsible for the management of Kubernetes cluster. It is mainly the entry point for all administrative tasks. There can be more than one master node in the cluster to check for fault tolerance.
+   
+ 
+ The master node has various components like API Server, Controller Manager, Scheduler and ETCD.
+
+1.API Server: 
+============
+The API server is the entry point for all the REST commands used to control the cluster.
+
+2.Controller Manager: 
+======================
+Is a daemon that regulates the Kubernetes cluster, and manages different 
+non-terminating control loops.
+
+3.Scheduler: 
+============
+The scheduler schedules the tasks to slave nodes. It stores the resource usage 
+information for each slave node.
+
+4.ETCD:
+=======
+ETCD is a simple, distributed, consistent key-value store. 
+It’s mainly used for shared configuration and service discovery.
+
+Worker/Slave nodes
+==================
+Worker nodes contain all the necessary services to manage 
+the networking between the containers, communicate with the master node, and 
+assign resources to the scheduled containers.
+
+
+Worker nodes 
+=============
+Worker Nodes contain all the necessary services to manage the networking 
+between the containers, communicate with the master node, and assign 
+resources to the scheduled containers.
+
+
+
+The worker node has various components like 
+Docker Container, Kubelet, Kube-proxy, and Pods.
+
+Docker Container:
+=================
+Docker runs on each of the worker nodes, and runs the configured pods
+
+Kubelet: 
+========
+Kubelet gets the configuration of a Pod from the API server and ensures 
+that the described containers are up and running.
+
+Kube-proxy: 
+===========
+Kube-proxy acts as a network proxy and a load balancer for a service
+on a single worker node
+
+Pods: 
+=====
+A pod is one or more containers that logically run together on nodes. 
+
+
+
+
+What is Kubernetes? 
+======================
+Kubernetes is a container management technology developed in Google lab to manage 
+containerized applications in different kind of environments such as physical, virtual, 
+and cloud infrastructure.
+
+
+Kubernetes comes with a capability of automating deployment, scaling of application, and 
+operations of application containers across clusters. It is capable of creating container
+centric infrastructure.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Features of Kubernetes
+======================
+Continues development, integration and deployment
+Containerized infrastructure
+Application-centric management
+Auto-scalable infrastructure
+Environment consistency across development testing and production
+Loosely coupled infrastructure, where each component can act as a separate unit
+Higher density of resource utilization
+Predictable infrastructure which is going to be created
+
+It can run application on clusters of physical and virtual machine infrastructure. 
+It also has the capability to run applications on cloud. 
+It helps in moving from host-centric infrastructure to container-centric infrastructure.
+
+
+Kubernetes - Cluster Architecture
+==================================
+Kubernetes follows client-server architecture. Wherein, we have master installed on one machine
+and the node on separate Linux machines.
+
+
+Kubernetes - Master Machine Components
+=======================================
+  etcd
+  ====
+It stores the configuration information which can be used by each of the nodes in the cluster. It is a high availability key value store that can be distributed among multiple nodes. It is accessible only by Kubernetes API server as it may have some sensitive information. It is a distributed key value Store which is accessible to all.
+
+API Server
+===========
+Kubernetes is an API server which provides all the operation on cluster using the API. API server implements an interface, which means different tools and libraries can readily communicate with it. Kubeconfig is a package along with the server side tools that can be used for communication. It exposes Kubernetes API.
+
+Controller Manager
+==================
+This component is responsible for most of the collectors that regulates the state of cluster and performs a task. In general, it can be considered as a daemon which runs in nonterminating loop and is responsible for collecting and sending information to API server. It works toward getting the shared state of cluster and then make changes to bring the current status of the server to the desired state. The key controllers are replication controller, endpoint controller, namespace controller, and service account controller. The controller manager runs different kind of controllers to handle nodes, endpoints, etc.
+
+Scheduler
+===========
+This is one of the key components of Kubernetes master. It is a service in master responsible for distributing the workload. It is responsible for tracking utilization of working load on cluster nodes and then placing the workload on which resources are available and accept the workload. In other words, this is the mechanism responsible for allocating pods to available nodes. The scheduler is responsible for workload utilization and allocating pod to new node.
+
+
+
+Kubernetes - Node Components
+============================
+Docker
+=======
+The first requirement of each node is Docker which helps in running the encapsulated application containers in a relatively isolated but lightweight operating environment.
+
+Kubelet Service
+================
+This is a small service in each node responsible for relaying information to and from control plane service. It interacts with etcd store to read configuration details and wright values. This communicates with the master component to receive commands and work. The kubelet process then assumes responsibility for maintaining the state of work and the node server. It manages network rules, port forwarding, etc.
+
+Kubernetes Proxy Service
+========================
+This is a proxy service which runs on each node and helps in making services available to the external host. It helps in forwarding the request to correct containers and is capable of performing primitive load balancing. It makes sure that the networking environment is predictable and accessible and at the same time it is isolated as well. It manages pods on node, volumes, secrets, creating new containers’ health checkup, etc.
+
+
+Kubernetes Objects
+==================
+Containers,Pods,ReplicaSets,Services,Secrets,ConfigMaps,Deployments,DaemonSets
+
+=>Pods manage containers
+=>ReplicaSets manage pods
+=>Services expose pod processes to outside world
+=>ConfigMaps and Secrets help you configure Pods
+=>Labels are the plumbing taht ties everything togethers
+=>Deployment manage the change from one set of replicasets.pods to another(e.g for a software release)
+
+
+ =>represented as JSON or YAML files
+ =>You create these and then push them to the K8s API with Kubectl
+   (or receive them as output from kubectlafter it hits the K8s API fro you)
+
+
+kubectl controls the Kubernetes cluster manager.
+
+ Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+                           https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+                           
+ 
+
+Basic Commands (Beginner):
+  create         Create a resource from a file or from stdin.
+  expose         Take a replication controller, service, deployment or pod and expose it as a new
+Kubernetes Service
+  run            Run a particular image on the cluster
+  set            Set specific features on objects
+
+Basic Commands (Intermediate):
+  explain        Documentation of resources
+  get            Display one or many resources
+  edit           Edit a resource on the server
+  delete         Delete resources by filenames, stdin, resources and names, or by resources and
+label selector
+
+Deploy Commands:
+  rollout        Manage the rollout of a resource
+  scale          Set a new size for a Deployment, ReplicaSet or Replication Controller
+  autoscale      Auto-scale a Deployment, ReplicaSet, or ReplicationController
+
+Cluster Management Commands:
+  certificate    Modify certificate resources.
+  cluster-info   Display cluster info
+  top            Display Resource (CPU/Memory/Storage) usage.
+  cordon         Mark node as unschedulable
+  uncordon       Mark node as schedulable
+  drain          Drain node in preparation for maintenance
+  taint          Update the taints on one or more nodes
+
+Troubleshooting and Debugging Commands:
+  describe       Show details of a specific resource or group of resources
+  logs           Print the logs for a container in a pod
+  attach         Attach to a running container
+  exec           Execute a command in a container
+  port-forward   Forward one or more local ports to a pod
+  proxy          Run a proxy to the Kubernetes API server
+  cp             Copy files and directories to and from containers.
+  auth           Inspect authorization
+
+Advanced Commands:
+  diff           Diff live version against would-be applied version
+  apply          Apply a configuration to a resource by filename or stdin
+  patch          Update field(s) of a resource using strategic merge patch
+  replace        Replace a resource by filename or stdin
+  wait           Experimental: Wait for a specific condition on one or many resources.
+  convert        Convert config files between different API versions
+  kustomize      Build a kustomization target from a directory or a remote url.
+
+Settings Commands:
+  label          Update the labels on a resource
+  annotate       Update the annotations on a resource
+  completion     Output shell completion code for the specified shell (bash or zsh)
+
+Other Commands:
+  api-resources  Print the supported API resources on the server
+  api-versions   Print the supported API versions on the server, in the form of "group/version"
+  config         Modify kubeconfig files
+  plugin         Provides utilities for interacting with plugins.
+  version        Print the client and server version information
+
+Usage:
+  kubectl [flags] [options]
+
+Use "kubectl <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+
+
+======================================
+Day3
+
+Reference Links
+===============
+https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/
+https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#run
+
+Start a single instance of nginx    
+            =>kubectl run nginx --image=nginx
+
+
+Start a single instance of hazelcast and let the container expose port 5701 .
+            
+            kubectl run hazelcast --image=hazelcast --port=5701
+
+
+Start a single instance of hazelcast and set environment variables "DNS_DOMAIN=cluster" and "POD_NAMESPACE=default" in the container.
+          
+           kubectl run hazelcast --image=hazelcast --env="DNS_DOMAIN=cluster" --env="POD_NAMESPACE=default"
+           
+Start a single instance of hazelcast and set labels "app=hazelcast" and "env=prod" in the container.
+
+          kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
+          
+
+Start a replicated instance of nginx.
+
+         kubectl run nginx --image=nginx --replicas=5
+         
+Dry run. Print the corresponding API objects without creating them.
+
+         kubectl run nginx --image=nginx --dry-run         
+         
+
+Start a single instance of nginx, but overload the spec of the deployment with a partial set of values parsed from JSON.
+
+       kubectl run nginx --image=nginx --overrides='{ "apiVersion": "v1", "spec": { ... } }'
+
+
+=================
+
+Creating Objects
+================
+Kubernetes manifests can be defined in YAML or JSON. The file extension .yaml, .yml, and .json can be used.
+
+kubectl apply -f ./my-manifest.yaml            # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
+kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo          # create resource(s) from url
+kubectl create deployment nginx --image=nginx  # start a single instance of nginx
+kubectl explain pods,svc                       # get the documentation for pod and svc manifests
+
+
+
+Viewing, Finding Resources
+==========================
+# Get commands with basic output
+kubectl get services                          # List all services in the namespace
+kubectl get pods --all-namespaces             # List all pods in all namespaces
+kubectl get pods -o wide                      # List all pods in the current namespace, with more details
+kubectl get deployment my-dep                 # List a particular deployment
+kubectl get pods                              # List all pods in the namespace
+kubectl get pod my-pod -o yaml                # Get a pod's YAML
+kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
+
+# Describe commands with verbose output
+kubectl describe nodes my-node
+kubectl describe pods my-pod
+
+# List Services Sorted by Name
+kubectl get services --sort-by=.metadata.name
+
+# List pods Sorted by Restart Count
+kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
+
+# List PersistentVolumes sorted by capacity
+kubectl get pv --sort-by=.spec.capacity.storage
+
+# Get the version label of all pods with label app=cassandra
+kubectl get pods --selector=app=cassandra -o \
+  jsonpath='{.items[*].metadata.labels.version}'
+
+# Get all worker nodes (use a selector to exclude results that have a label
+# named 'node-role.kubernetes.io/master')
+kubectl get node --selector='!node-role.kubernetes.io/master'
+
+# Get all running pods in the namespace
+kubectl get pods --field-selector=status.phase=Running
+
+# Get ExternalIPs of all nodes
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+
+# List Names of Pods that belong to Particular RC
+# "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
+sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
+echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+
+# Show labels for all pods (or any other Kubernetes object that supports labelling)
+kubectl get pods --show-labels
+
+# Check which nodes are ready
+JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
+ && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+
+# List all Secrets currently in use by a pod
+kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
+
+# List Events sorted by timestamp
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
+kubectl diff -f ./my-manifest.yaml
+
+
+
+day4
+=====
+
+kubectl run pradeep-nginx --image=nginx --port=80 --replicas=3
+
+kubectl expose deployment pradeep-nginx --type=NodePort --name=pradeep-np-nginx-service
+
+kubectl expose deployment pradeep-nginx --type=LoadBalancer --name=pradeep-lb-nginx-service
+
+
+
+
+
+
+Forward Proxy    :  
+=================  
+Forward proxy can be used by the client to bypass firewall restrictions 
+in order to visit websites that are blocked by school, government, company etc.
+If a website blocked an IP range from visiting the website, then a person in that IP range
+can use forward proxy to hide the real IP of the client so that person can visit the website
+and maybe leave some spam comments. However forward proxy might be detected by the website
+administrator. There are some paid proxy service that has numerous proxy systems around 
+the world so that they can change your IP address every time your visit a new web page and 
+this makes it harder for website administrators to detect.
+
+Benefits
+             1.Anonymity
+             2.Caching
+             3.Blocking Unwanted Site 
+             4.GeoFencing
+    
+    
+     Client 1   -----------
+                           
+     Client 2   -----------                 Proxy Server  ---------------        Server          
+   
+     Client 3  ------------
+     
+   
+Reverse Proxy    : It is a server which hides the identity of Server
+=============
+
+Reverse proxy is mainly used by server admins to achieve load balancing and high availability.
+A website may have several web servers behind the reverse proxy. 
+The reverse proxy server takes requests from the Internet and forward these requests to one
+of the web servers.
+Most visitors don’t know websites are using reverse proxy because they 
+usually lack the knowledge and tools to detect it or they simply don’t care about it.
+Nginx can be acting both a web server and a reverse proxy at the same time. 
+HAProxy is another well-known open-source reverse proxy software.
+
+   Benefits
+            Load balancing
+            Caching
+            Isolating the internal traffic
+            Logging
+            
+                                                                           -------- Server1
+
+
+         Client  (80)--------------------    Reverse Proxy    ---------------- -------- Server2
+
+ 
+                                                                           -------- Server3
+                                                                           
+
+
+Pod Yaml file Example
+=====================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:    
+    app: myapp
+    type: front-end
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+
+
+Pod-definition.yaml
+===================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+    type: front-end
+spec:
+ containers:
+    name: nginx-container
+    image: nginx
+
+
+kubectl apply -f ./pod-definition.yaml
+
+
+service-definition.yaml
+========================
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 2222
+  selector:
+    app: myapp
+    type: front-end
+
+
+kubectl create -f ./service-definition.yaml
+
+
+day5
+====
+Ingress 7 is Layer 7 Load balancer in Kubernetes cluster that can be configured by
+using native kubernetes primitives just as other kubernetes objects
+
+Even Ingress shoud be exposed to make it accessible outside cluster 
+
+1.Ingress Service (Node Port)
+2.Ingress Service (Load Balancer)
+
+ Deploy  (Reverse proxy/Load Balancing Solution  Nginx ,HA Proxy or trafik)
+       The solution you deploye is called as Ingress Controller
+ 
+ Configure (defining services,routes etc)
+       The set of rules you define are called as Ingress resources
+       Ingress resources can be created using definition files similar to (pods,services and deployments)
+       
+
+A Kubernetes cluster doesnot come with Ingress controller default.
+  You must deploy this one
+  GCP HTTP(s) ,Load Balancer (GCE)
+  NgiNX
+  Ingress Controller have additional intelligence built in to them
+  1.monitor K8s cluster for new definitions and Ingress resources
+  2.configure nginx server accordingly
+  
+  Nginx controller has been deployed as another deployment.
+  
+    
+    Install Kubernetes Ingress Controller
+    Kubernetes Ingress is an additional Kubernetes Resources which can be installed by:
+
+
+   kubectl apply -f  https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/mandatory.yaml
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
+  
+  
+  Using the following command you’ll see the k8s resources which get installed in the namespace ingress-nginx:
+
+  kubectl get svc,pod --namespace=ingress-nginx
+
+tea-pod-def.yaml
+================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tea-pod
+  labels:    
+    app: tea
+    type: front-end
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    
+tea-svc-def.yaml
+================
+apiVersion: v1
+kind: Service
+metadata:
+  name: tea-svc
+spec:
+  selector:
+    app: tea
+    type: front-end
+  ports:
+    - port: 30501
+      targetPort: 80
+  type: LoadBalancer
+    
+    
+coffee-pod-def.yaml
+===================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: coffee-pod
+  labels:    
+    app: coffee
+    type: front-end
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    
+coffee-svc-def.yaml
+===================
+apiVersion: v1
+kind: Service
+metadata:
+  name: coffee-svc
+spec:
+  selector:
+    app: coffee
+    type: front-end
+  ports:
+    - port: 30502
+      targetPort: 80
+  type: LoadBalancer
+  
+  
+  cafe-ingress.yaml
+  ==================
+  apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+  annotations:
+    nginx.org/sticky-cookie-services: "serviceName=coffee-svc srv_id expires=1h path=/coffee"
+    nginx.com/jwt-realm: "Cafe App"  
+    nginx.com/jwt-token: "$cookie_auth_token"
+    nginx.com/jwt-key: "cafe-jwk" 
+spec:
+  rules:
+   - http:
+      paths:
+      - path: /tea
+        backend:
+          serviceName: tea-svc
+          servicePort: 80
+      - path: /coffee
+        backend:
+          serviceName: coffee-svc
+          servicePort: 80
+      
+Commands to create a folder and index .html
+===========================================
+
+kubectl exec -it tea-pod -- /bin/bash
+echo "<font color='magenta' size='7'> Hello Tea Service</font>'" > /usr/share/nginx/html/index.html
+mkdir /usr/share/nginx/html/tea
+echo "<font color='brown' size='7'> Welcome To Tea Service</font>" > /usr/share/nginx/html/tea/index.html
+
+
+kubectl exec -it coffee-pod -- /bin/bash
+echo "<font color='brown' size='7'> Hello Coffe Service</font>'" > /usr/share/nginx/html/index.html
+mkdir /usr/share/nginx/html/coffee
+echo "<font color='green' size='7'> Welcome To Coffee Service</font>" > /usr/share/nginx/html/coffee/index.html
+
+  
+
+
+
+Reference url :  https://codeburst.io/kubernetes-ingress-simply-visually-explained-d9cad44e4419
+
